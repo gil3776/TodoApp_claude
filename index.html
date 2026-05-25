@@ -10,22 +10,51 @@
   <div class="container">
     <h1>할 일 목록</h1>
 
-    <div class="input-row">
-      <input id="todo-input" type="text" placeholder="할 일을 입력하세요..." />
-      <button id="add-btn">추가</button>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="list">목록</button>
+      <button class="tab-btn" data-tab="calendar">달력</button>
     </div>
 
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">전체</button>
-      <button class="filter-btn" data-filter="active">미완료</button>
-      <button class="filter-btn" data-filter="done">완료</button>
+    <!-- 목록 탭 -->
+    <div id="tab-list" class="tab-content active">
+      <div class="input-area">
+        <input id="todo-input" type="text" placeholder="할 일을 입력하세요..." />
+        <div class="input-row2">
+          <input id="date-input" type="date" />
+          <button id="add-btn">추가</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">전체</button>
+        <button class="filter-btn" data-filter="active">미완료</button>
+        <button class="filter-btn" data-filter="done">완료</button>
+      </div>
+
+      <ul id="todo-list"></ul>
+
+      <div class="footer">
+        <span id="count"></span>
+        <button id="clear-btn">완료 항목 삭제</button>
+      </div>
     </div>
 
-    <ul id="todo-list"></ul>
-
-    <div class="footer">
-      <span id="count"></span>
-      <button id="clear-btn">완료 항목 삭제</button>
+    <!-- 달력 탭 -->
+    <div id="tab-calendar" class="tab-content">
+      <div class="calendar-nav">
+        <button id="prev-month">&#8249;</button>
+        <span id="calendar-title"></span>
+        <button id="next-month">&#8250;</button>
+      </div>
+      <div class="calendar-header">
+        <div>일</div><div>월</div><div>화</div><div>수</div>
+        <div>목</div><div>금</div><div>토</div>
+      </div>
+      <div id="calendar-days"></div>
+      <div id="calendar-detail">
+        <div id="detail-date"></div>
+        <ul id="detail-list"></ul>
+      </div>
     </div>
   </div>
 

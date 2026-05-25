@@ -20,24 +20,62 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 32px;
   width: 100%;
-  max-width: 480px;
+  max-width: 560px;
 }
 
 h1 {
   font-size: 1.6rem;
   color: #1a1a2e;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-.input-row {
+/* ── 탭 ── */
+.tabs {
   display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px;
+  background: #fff;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: #6c63ff;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── 탭 콘텐츠 ── */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ── 입력 영역 ── */
+.input-area {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.input-row input {
-  flex: 1;
+.input-area > input[type="text"] {
+  width: 100%;
   padding: 10px 14px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -46,12 +84,32 @@ h1 {
   transition: border-color 0.2s;
 }
 
-.input-row input:focus {
+.input-area > input[type="text"]:focus {
   border-color: #6c63ff;
 }
 
-.input-row button {
-  padding: 10px 18px;
+.input-row2 {
+  display: flex;
+  gap: 8px;
+}
+
+.input-row2 input[type="date"] {
+  flex: 1;
+  padding: 9px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  color: #444;
+  transition: border-color 0.2s;
+}
+
+.input-row2 input[type="date"]:focus {
+  border-color: #6c63ff;
+}
+
+.input-row2 button {
+  padding: 9px 20px;
   background: #6c63ff;
   color: #fff;
   border: none;
@@ -59,12 +117,14 @@ h1 {
   font-size: 0.95rem;
   cursor: pointer;
   transition: background 0.2s;
+  white-space: nowrap;
 }
 
-.input-row button:hover {
+.input-row2 button:hover {
   background: #574fd6;
 }
 
+/* ── 필터 ── */
 .filters {
   display: flex;
   gap: 8px;
@@ -89,6 +149,7 @@ h1 {
   font-weight: 600;
 }
 
+/* ── 할일 목록 ── */
 #todo-list {
   list-style: none;
   display: flex;
@@ -119,8 +180,15 @@ h1 {
   flex-shrink: 0;
 }
 
-.todo-item .text {
+.todo-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.todo-item .text {
   font-size: 0.95rem;
   color: #333;
   word-break: break-all;
@@ -131,6 +199,15 @@ h1 {
   color: #aaa;
 }
 
+.todo-date {
+  font-size: 0.75rem;
+  color: #6c63ff;
+}
+
+.todo-item.done .todo-date {
+  color: #bbb;
+}
+
 .todo-item .delete-btn {
   background: none;
   border: none;
@@ -139,12 +216,14 @@ h1 {
   cursor: pointer;
   padding: 0 4px;
   transition: color 0.2s;
+  flex-shrink: 0;
 }
 
 .todo-item .delete-btn:hover {
   color: #e55;
 }
 
+/* ── 푸터 ── */
 .footer {
   display: flex;
   justify-content: space-between;
@@ -172,4 +251,147 @@ h1 {
   color: #bbb;
   font-size: 0.9rem;
   padding: 24px 0;
+  list-style: none;
+}
+
+/* ── 달력 ── */
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.calendar-nav button {
+  background: none;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #555;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.calendar-nav button:hover {
+  border-color: #6c63ff;
+  color: #6c63ff;
+}
+
+#calendar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.calendar-header > div {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #888;
+  padding: 4px 0;
+}
+
+.calendar-header > div:first-child { color: #e55; }
+.calendar-header > div:last-child  { color: #4a90e2; }
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  min-height: 56px;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+
+.calendar-day:not(.empty):hover {
+  border-color: #6c63ff;
+  background: #f5f4ff;
+}
+
+.calendar-day.empty {
+  border-color: transparent;
+  cursor: default;
+}
+
+.calendar-day.today .day-num {
+  background: #6c63ff;
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day.selected {
+  border-color: #6c63ff;
+  background: #f5f4ff;
+}
+
+.day-num {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #333;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-badge {
+  font-size: 0.68rem;
+  background: #ffe5b4;
+  color: #b87700;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-weight: 600;
+}
+
+.day-badge.all-done {
+  background: #d4edda;
+  color: #1a7a3a;
+}
+
+/* ── 달력 상세 ── */
+#calendar-detail {
+  display: none;
+  margin-top: 20px;
+  border-top: 2px solid #f0f0f0;
+  padding-top: 16px;
+}
+
+#detail-date {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+#detail-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
